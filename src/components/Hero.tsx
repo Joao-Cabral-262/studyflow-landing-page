@@ -32,13 +32,11 @@ const Hero = () => {
           Novo: Pomodoro com IA integrado
         </div>
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] animate-fade-in-slow">
-          {conteudo?.titulos[1]?.textContent}
-          <span className="text-gradient">{conteudo?.paragrafos[2]?.textContent}</span>
+          {conteudo?.titulos[0]?.textContent}
+          <span className="text-gradient">{conteudo?.titulos[1]?.textContent}</span>
         </h1>
         <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in-slow">
-          StudyFlow reúne calendário inteligente, grupos de estudo e foco profundo
-          em uma única plataforma feita para estudantes que querem mais resultado
-          com menos sobrecarga.
+          {conteudo?.paragrafos[0]?.textContent}
         </p>
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-slow">
           <a
