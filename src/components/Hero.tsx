@@ -1,6 +1,29 @@
 import { ArrowRight, Sparkles } from "lucide-react";
 
+import { useEffect, useState } from "react";
+import { fetchPagina } from "@/utils/fetchPagina";
+import { parseContent } from "@/utils/parseContent";
+
+type Conteudo = ReturnType<typeof parseContent>;
+
+
 const Hero = () => {
+
+  const [conteudo, setConteudo] = useState<Conteudo | null>(null); 
+
+  useEffect(() => { 
+    fetchPagina("pagina-1") 
+      .then(pagina => { 
+        // fetchPagina trouxe o JSON completo da página 
+        // parseContent separa o HTML em paragrafos, titulos, imagens... 
+        const elementos = parseContent(pagina.content.rendered); 
+        setConteudo(elementos); 
+      }) 
+      .catch(() => { 
+      console.warn("Não foi possível buscar o conteúdo do WordPress."); 
+      }); 
+  }, []);
+
   return (
     <section className="relative pt-32 pb-24 overflow-hidden bg-gradient-hero">
       <div className="container mx-auto text-center max-w-4xl px-4">
@@ -9,8 +32,8 @@ const Hero = () => {
           Novo: Pomodoro com IA integrado
         </div>
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] animate-fade-in-slow">
-          Domine seu semestre <br />
-          <span className="text-gradient">sem estresse</span>
+          {conteudo?.titulos[1]?.textContent}
+          <span className="text-gradient">{conteudo?.paragrafos[2]?.textContent}</span>
         </h1>
         <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in-slow">
           StudyFlow reúne calendário inteligente, grupos de estudo e foco profundo
